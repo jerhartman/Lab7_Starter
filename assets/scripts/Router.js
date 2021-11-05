@@ -24,10 +24,11 @@ export class Router {
      * TODO Part 1
      * Fill in this function as specified in the comment above
      */
+    this.addPage('home', homeFunc);
   }
 
   /**
-   * Adds a page name & function so to the router so that the function
+   * Adds a page name & function to the router so that the function
    * can be called later when the page is passed in
    * @param {String} page The name of the page to route to (this is used
    *                      as the page's hash as well in the URL)
@@ -38,6 +39,8 @@ export class Router {
      * TODO Part 1
      * Fill in this function as specified in the comment above
      */
+
+    this[page] = pageFunc;
   }
 
   /**
@@ -52,5 +55,9 @@ export class Router {
      * TODO Part 1
      * Fill in this function as specified in the comment above
      */
+    if(!statePopped) {
+      this[page]();
+      window.history.pushState(page, "", `./page=${page}`);
+    }
   }
 }
