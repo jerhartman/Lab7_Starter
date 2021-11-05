@@ -113,12 +113,13 @@ function createRecipeCards() {
      * add this class to the correct <section> to display that section
      */
 
-    router.addPage(recipeCard['title'], function() {
+    router.addPage(recipeData[recipes[i]]['page-name'], function() {
+      document.querySelector('recipe-expand').data = recipeData[recipes[i]];
       document.querySelector('.section--recipe-cards').classList.remove('shown');
       document.querySelector('.section--recipe-expand').classList.add('shown');
     });
 
-    bindRecipeCard(recipeCard, recipeCard['title']);
+    bindRecipeCard(recipeCard, recipeData[recipes[i]]['page-name']);
 
     if (i >= 3) recipeCard.classList.add('hidden');
     document.querySelector('.recipe-cards--wrapper').appendChild(recipeCard);
@@ -166,7 +167,9 @@ function bindRecipeCard(recipeCard, pageName) {
    * Fill in this function as specified in the comment above
    */
 
-  recipeCard.addEventListener('click', router.navigate(pageName, false));
+  recipeCard.addEventListener('click', function() {
+    router.navigate(pageName, false);
+  });
 }
 
 /**
@@ -178,11 +181,11 @@ function bindEscKey() {
    * TODO - Part 1
    * Fill in this function as specified in the comment above
    */
-  // window.addEventListener('keydown', function(k) {
-  //   if(k.keyCode() == 27) {
-  //     router.navigate(home);
-  //   }
-  // });
+  window.addEventListener('keydown', k => {
+    if(k.code == 'Escape') {
+      router.navigate('home', false);
+    }
+  });
 
 }
 
@@ -199,7 +202,12 @@ function bindPopstate() {
    * Fill in this function as specified in the comment above
    */
 
-  //window.addEventListener('popstate', function(p) {
-
-  //});
+  window.addEventListener('popstate', p => {
+    if (p.state == null) {
+      navigate(null, true);
+    }
+    else {
+      router.navigate(p.state.page, true);
+    }
+  });
 }

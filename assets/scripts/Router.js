@@ -56,8 +56,14 @@ export class Router {
      * Fill in this function as specified in the comment above
      */
     if(!statePopped) {
+      this[page]()
+      window.history.pushState({page}, "", `./page=${page}`);
+    }
+    if (page == null){
+      this['home']();
+    }
+    else {
       this[page]();
-      window.history.pushState(page, "", `./page=${page}`);
     }
   }
 }
