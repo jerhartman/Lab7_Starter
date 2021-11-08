@@ -57,7 +57,12 @@ export class Router {
      */
     if(!statePopped) {
       this[page]()
-      window.history.pushState({page}, "", `./page=${page}`);
+      if (page == 'home') {
+        window.history.pushState({page}, "", "");
+      }
+      else {
+        window.history.pushState({page}, "", `${page}`);
+      }
     }
     if (page == null){
       this['home']();
